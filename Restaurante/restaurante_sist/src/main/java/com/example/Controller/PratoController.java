@@ -148,6 +148,45 @@ public List<Prato> listarPratos() {
 
     return pratos;
 }
+// Método para atualizar um prato existente
+public boolean atualizarPrato(Prato prato) {
+    String sql = "UPDATE pratos SET nome = ?, descricao = ?, preco = ? WHERE id = ?";
+
+    try (Connection connection = RestauranteConexao.getConnection();
+         PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+        stmt.setString(1, prato.getNome());
+        stmt.setString(2, prato.getDescricao());
+        stmt.setDouble(3, prato.getPreco());
+        stmt.setInt(4, prato.getId()); // ID do prato a ser atualizado
+
+        stmt.executeUpdate();
+        System.out.println("Prato atualizado com sucesso!");
+        return true;
+
+    } catch (SQLException e) {
+        System.out.println("Erro ao atualizar prato: " + e.getMessage());
+        return false;
+    }
+}
+
+// Método para excluir um prato
+public boolean excluirPrato(int id) {
+    String sql = "DELETE FROM pratos WHERE id = ?";
+
+    try (Connection connection = RestauranteConexao.getConnection();
+         PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+        stmt.setInt(1, id);
+        stmt.executeUpdate();
+        System.out.println("Prato excluído com sucesso!");
+        return true;
+
+    } catch (SQLException e) {
+        System.out.println("Erro ao excluir prato: " + e.getMessage());
+        return false;
+    }
+}
 
     
 }

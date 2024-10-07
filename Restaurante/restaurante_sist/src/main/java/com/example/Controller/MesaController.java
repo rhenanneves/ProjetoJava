@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.Model.Bebida;
 import com.example.Model.Mesa;
 import com.example.Model.Prato;
 import com.example.Model.RestauranteConexao;
@@ -27,25 +28,6 @@ public class MesaController {
 
         } catch (SQLException e) {
             System.out.println("Erro ao abrir mesa: " + e.getMessage());
-            return false;
-        }
-    }
-
-    // Método para reservar uma mesa
-    public boolean reservarMesa(int id, String cliente) {
-        String sql = "UPDATE mesas SET status = 'reservada', cliente = ? WHERE id = ?";
-
-        try (Connection connection = RestauranteConexao.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setString(1, cliente);
-            stmt.setInt(2, id);
-            stmt.executeUpdate();
-            System.out.println("Mesa " + id + " reservada com sucesso para " + cliente + "!");
-            return true;
-
-        } catch (SQLException e) {
-            System.out.println("Erro ao reservar mesa: " + e.getMessage());
             return false;
         }
     }
@@ -97,13 +79,13 @@ public class MesaController {
     // Método para deletar uma mesa
     public boolean deletarMesa(int id) {
         String sql = "DELETE FROM mesas WHERE id = ?";
-    
+
         try (Connection connection = RestauranteConexao.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
-    
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
             stmt.setInt(1, id);
             int rowsAffected = stmt.executeUpdate();
-    
+
             if (rowsAffected > 0) {
                 System.out.println("Mesa " + id + " deletada com sucesso!");
                 return true;
@@ -111,13 +93,12 @@ public class MesaController {
                 System.out.println("Nenhuma mesa encontrada com o ID " + id);
                 return false;
             }
-    
+
         } catch (SQLException e) {
             System.out.println("Erro ao deletar mesa: " + e.getMessage());
             return false;
         }
     }
-    
 
     // Método para obter pratos associados à mesa
     public List<Prato> obterPratosDaMesa(int mesaId) {
@@ -145,16 +126,23 @@ public class MesaController {
         return pratos;
     }
 
-    // Método para calcular o total da comanda
+    // Método para calcular o total da comanda (pratos e bebidas)
     public double calcularTotalComanda(int mesaId) {
         double total = 0.0;
-        List<Prato> pratos = obterPratosDaMesa(mesaId); // Obtendo os pratos da mesa
 
+        // Soma o preço dos pratos
+        List<Prato> pratos = obterPratosDaMesa(mesaId);
         for (Prato prato : pratos) {
-            total += prato.getPreco(); // Soma o preço de cada prato
+            total += prato.getPreco();
         }
 
-        return total; // Retorna o total calculado
+        // Soma o preço das bebidas
+        List<Bebida> bebidas = obterBebidasDaMesa(mesaId);
+        for (Bebida bebida : bebidas) {
+            total += bebida.getPreco();
+        }
+
+        return total; // Retorna o total de pratos e bebidas
     }
 
     public double obterPrecoPrato(String pratoNome) {
@@ -206,14 +194,15 @@ public class MesaController {
         // pagamento real)
         return true; // Retorna true para simulação, mude conforme necessário
     }
+
     public Mesa buscarMesaPorId(int id) {
         String sql = "SELECT * FROM mesas WHERE id = ?";
-        
+
         try (Connection connection = RestauranteConexao.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
-    
+
             if (rs.next()) {
                 // Se a mesa existir, crie e retorne uma nova instância de Mesa
                 int numero = rs.getInt("numero");
@@ -222,11 +211,66 @@ public class MesaController {
             } else {
                 return null; // Retorna null se a mesa não for encontrada
             }
-            
+
         } catch (SQLException e) {
             System.out.println("Erro ao buscar mesa: " + e.getMessage());
             return null; // Retorna null em caso de erro
         }
+    }
+
+    // Método para obter bebidas associadas à mesa
+    public List<Bebida> obterBebidasDaMesa(int mesaId) {
+        String sql = "SELECT * FROM bebidas WHERE mesa_id = ?"; // Supondo que há uma chave estrangeira mesa_id
+        List<Bebida> bebidas = new ArrayList<>();
+
+        try (Connection connection = RestauranteConexao.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, mesaId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                double preco = rs.getDouble("preco");
+                Bebida bebida = new Bebida(id, nome, descricao, preco);
+                bebidas.add(bebida);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar bebidas da mesa: " + e.getMessage());
+        }
+
+        return bebidas;
+    }
+
+    public void gerarRelatorioMesa(int mesaId) {
+        Mesa mesa = buscarMesaPorId(mesaId);
+        
+        if (mesa == null) {
+            System.out.println("Mesa não encontrada!");
+            return;
+        }
+    
+        System.out.println("Relatório da Mesa " + mesa.getNumero());
+    
+        // Listando pratos
+        System.out.println("Pratos:");
+        List<Prato> pratos = obterPratosDaMesa(mesaId);
+        for (Prato prato : pratos) {
+            System.out.println(" - " + prato.getNome() + ": R$ " + prato.getPreco());
+        }
+    
+        // Listando bebidas
+        System.out.println("Bebidas:");
+        List<Bebida> bebidas = obterBebidasDaMesa(mesaId);
+        for (Bebida bebida : bebidas) {
+            System.out.println(" - " + bebida.getNome() + ": R$ " + bebida.getPreco());
+        }
+    
+        // Total
+        double total = calcularTotalComanda(mesaId);
+        System.out.println("Total da Comanda: R$ " + total);
     }
     
 }

@@ -1,8 +1,6 @@
 package com.example.View;
 
-
 import javax.swing.*;
-
 import com.example.Controller.PratoController;
 import com.example.Model.Prato;
 
@@ -55,7 +53,6 @@ public class CadastroPratoView extends JFrame {
                 double preco = Double.parseDouble(precoField.getText());
 
                 // Criar um objeto Prato com os dados inseridos
-             
                 Prato prato = new Prato(idGerado, nomePrato, descricao, preco);
 
                 // Chamar o controller para cadastrar
@@ -79,6 +76,7 @@ public class CadastroPratoView extends JFrame {
         CadastroPratoView view = new CadastroPratoView();
         view.setVisible(true);
     }
+
     private int gerarId() {
         // Aqui você pode implementar uma lógica para garantir que o ID é único
         // Para fins de exemplo, vamos usar um contador estático

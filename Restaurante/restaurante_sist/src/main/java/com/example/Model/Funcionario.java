@@ -13,6 +13,7 @@ public class Funcionario {
         this.cargo = cargo;
         this.dataAdmissao = dataAdmissao;
         this.salario = salario;
+        
     }
 
     // Getters e Setters

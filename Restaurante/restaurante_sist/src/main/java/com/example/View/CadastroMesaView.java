@@ -7,8 +7,7 @@ import java.awt.event.ActionListener;
 import com.example.Controller.MesaController; // Certifique-se de que você tem este controlador
 import com.example.Model.Mesa;
 
-public class CadastroMesaView {
-    private JFrame frame;
+public class CadastroMesaView extends JFrame {
     private JTextField idField;
     private JTextField numeroField; // Adiciona um campo para o número da mesa
     private JComboBox<String> statusComboBox;
@@ -16,33 +15,34 @@ public class CadastroMesaView {
 
     public CadastroMesaView() {
         mesaController = new MesaController(); // Inicializa o controlador das mesas
-        frame = new JFrame("Cadastro de Mesa");
-        frame.setSize(300, 250); // Aumenta a altura para acomodar mais campos
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLayout(new GridLayout(4, 2)); // 4 linhas, 2 colunas
+        setTitle("Cadastro de Mesa");
+        setSize(300, 250); // Aumenta a altura para acomodar mais campos
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new GridLayout(4, 2)); // 4 linhas, 2 colunas
 
         // Campo para ID da mesa
-        frame.add(new JLabel("ID da Mesa:"));
+        add(new JLabel("ID da Mesa:"));
         idField = new JTextField();
-        frame.add(idField);
+        add(idField);
 
         // Campo para Número da mesa
-        frame.add(new JLabel("Número da Mesa:")); // Adiciona um label para o número
+        add(new JLabel("Número da Mesa:")); // Adiciona um label para o número
         numeroField = new JTextField(); // Campo para o número da mesa
-        frame.add(numeroField);
+        add(numeroField);
 
         // ComboBox para Status da mesa
-        frame.add(new JLabel("Status da Mesa:"));
-        statusComboBox = new JComboBox<>(new String[]{"livre", "reservada", "ocupada"});
-        frame.add(statusComboBox);
+        add(new JLabel("Status da Mesa:"));
+        statusComboBox = new JComboBox<>(new String[]{"Livre", "Ocupado"});
+        add(statusComboBox);
 
         // Botão para salvar
         JButton saveButton = new JButton("Salvar Mesa");
         saveButton.addActionListener(new SaveButtonListener());
-        frame.add(saveButton);
+        add(saveButton);
 
         // Exibir a janela
-        frame.setVisible(true);
+        setLocationRelativeTo(null); // Centraliza a janela
+        setVisible(true);
     }
 
     private class SaveButtonListener implements ActionListener {
@@ -59,14 +59,14 @@ public class CadastroMesaView {
                 mesaController.cadastrarMesa(novaMesa); // Método que você deve implementar no controlador
 
                 // Mensagem de sucesso
-                JOptionPane.showMessageDialog(frame, "Mesa cadastrada com sucesso!");
+                JOptionPane.showMessageDialog(CadastroMesaView.this, "Mesa cadastrada com sucesso!");
 
                 // Limpa os campos
                 idField.setText("");
                 numeroField.setText(""); // Limpa o campo de número
                 statusComboBox.setSelectedIndex(0);
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(frame, "Por favor, insira um ID e número válidos.");
+                JOptionPane.showMessageDialog(CadastroMesaView.this, "Por favor, insira um ID e número válidos.");
             }
         }
     }

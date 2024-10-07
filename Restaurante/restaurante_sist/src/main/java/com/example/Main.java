@@ -1,19 +1,14 @@
 package com.example;
 
-
-import java.sql.Connection;
-
-import com.example.Model.RestauranteConexao;
+import com.example.View.LoginView;
 
 public class Main {
     public static void main(String[] args) {
-        // Testando a conexão com o banco
-        Connection connection = RestauranteConexao.getConnection();
-        if (connection != null) {
-            System.out.println("Conexão com o banco de dados estabelecida com sucesso!");
-            RestauranteConexao.closeConnection(connection);
-        } else {
-            System.out.println("Falha ao conectar ao banco de dados.");
-        }
+    // Abrindo a tela de Login
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LoginView().setVisible(true); // Certifique-se de que LoginView é uma classe GUI Swing ou JavaFX
+            }
+        });
     }
 }

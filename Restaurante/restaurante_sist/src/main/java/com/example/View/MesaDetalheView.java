@@ -27,24 +27,42 @@ public class MesaDetalheView {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
+        // Estilo do painel
+        frame.getContentPane().setBackground(Color.LIGHT_GRAY); // Cor de fundo
+        frame.setFont(new Font("Arial", Font.PLAIN, 14)); // Define a fonte padrão
+
         // Modelo da lista para exibir itens da comanda
         listModel = new DefaultListModel<>();
         itensComandaList = new JList<>(listModel);
+        itensComandaList.setBackground(Color.WHITE); // Fundo branco para a lista
+        itensComandaList.setBorder(BorderFactory.createLineBorder(Color.GRAY)); // Borda para a lista
         frame.add(new JScrollPane(itensComandaList), BorderLayout.CENTER); // Adiciona a lista na janela
 
         // Label para mostrar o total
         totalLabel = new JLabel("Total: R$ 0.00");
+        totalLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Fonte do total em negrito
+        totalLabel.setHorizontalAlignment(SwingConstants.CENTER); // Centraliza o texto
         frame.add(totalLabel, BorderLayout.SOUTH); // Adiciona o label na parte inferior
+
+        // Painel para os botões
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
 
         // Botão para adicionar pratos
         JButton adicionarPratoButton = new JButton("Adicionar Prato");
+        adicionarPratoButton.setBackground(new Color(76, 175, 80)); // Cor verde
+        adicionarPratoButton.setForeground(Color.WHITE); // Texto em branco
         adicionarPratoButton.addActionListener(new AdicionarPratoListener());
-        frame.add(adicionarPratoButton, BorderLayout.NORTH); // Adiciona o botão na parte superior
+        buttonPanel.add(adicionarPratoButton); // Adiciona o botão ao painel
 
         // Botão para realizar o pagamento
         JButton pagamentoButton = new JButton("Realizar Pagamento");
+        pagamentoButton.setBackground(new Color(33, 150, 243)); // Cor azul
+        pagamentoButton.setForeground(Color.WHITE); // Texto em branco
         pagamentoButton.addActionListener(new PagamentoListener());
-        frame.add(pagamentoButton, BorderLayout.EAST); // Adiciona o botão de pagamento na parte direita
+        buttonPanel.add(pagamentoButton); // Adiciona o botão ao painel
+
+        frame.add(buttonPanel, BorderLayout.NORTH); // Adiciona o painel de botões na parte superior
 
         frame.setVisible(true);
 
@@ -85,7 +103,6 @@ public class MesaDetalheView {
         return total; // Retorna o total da comanda
     }
     
-    
     private class AdicionarPratoListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -104,21 +121,28 @@ public class MesaDetalheView {
 
             // Botão para pagamento em Débito
             JButton debitoButton = new JButton("Débito");
+            debitoButton.setBackground(new Color(76, 175, 80)); // Cor verde
+            debitoButton.setForeground(Color.WHITE); // Texto em branco
             debitoButton.addActionListener(new FormasPagamentoListener("Débito", pagamentoFrame));
             pagamentoFrame.add(debitoButton);
 
             // Botão para pagamento em Crédito
             JButton creditoButton = new JButton("Crédito");
+            creditoButton.setBackground(new Color(33, 150, 243)); // Cor azul
+            creditoButton.setForeground(Color.WHITE); // Texto em branco
             creditoButton.addActionListener(new FormasPagamentoListener("Crédito", pagamentoFrame));
             pagamentoFrame.add(creditoButton);
 
             // Botão para pagamento em Dinheiro
             JButton dinheiroButton = new JButton("Dinheiro");
+            dinheiroButton.setBackground(new Color(255, 87, 34)); // Cor laranja
+            dinheiroButton.setForeground(Color.WHITE); // Texto em branco
             dinheiroButton.addActionListener(new FormasPagamentoListener("Dinheiro", pagamentoFrame));
             pagamentoFrame.add(dinheiroButton);
 
             // Mostrar o total na janela de pagamento
             JLabel totalPagamentoLabel = new JLabel("Total: R$ " + calcularTotalComanda());
+            totalPagamentoLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Fonte do total em negrito
             pagamentoFrame.add(totalPagamentoLabel);
 
             pagamentoFrame.setVisible(true);
@@ -141,11 +165,17 @@ public class MesaDetalheView {
 
             if ("Dinheiro".equalsIgnoreCase(formaPagamento)) {
                 String valorRecebidoStr = JOptionPane.showInputDialog(frame, "Valor recebido:");
-                double valorRecebido = Double.parseDouble(valorRecebidoStr);
-                double troco = valorRecebido - total;
+                if (valorRecebidoStr != null && !valorRecebidoStr.isEmpty()) {
+                    try {
+                        double valorRecebido = Double.parseDouble(valorRecebidoStr);
+                        double troco = valorRecebido - total;
 
-                // Exibir troco
-                JOptionPane.showMessageDialog(frame, "Troco: R$ " + troco);
+                        // Exibir troco
+                        JOptionPane.showMessageDialog(frame, "Troco: R$ " + troco);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(frame, "Valor inválido. Tente novamente.");
+                    }
+                }
             }
 
             // Gerar relatório em TXT
@@ -170,17 +200,21 @@ public class MesaDetalheView {
                 for (int i = 0; i < listModel.getSize(); i++) {
                     writer.write("- " + listModel.getElementAt(i) + "\n");
                 }
-                JOptionPane.showMessageDialog(frame, "Relatório gerado: " + nomeArquivo);
-            } catch (IOException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(frame, "Relatório gerado com sucesso: " + nomeArquivo);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(frame, "Erro ao gerar relatório: " + ex.getMessage());
             }
         }
     }
 
     public void adicionarPratoNaComanda(String pratoNome) {
-        // Lógica para adicionar o prato à comanda
-        listModel.addElement(pratoNome); // Adiciona o prato à lista da comanda
-        atualizarTotal(); // Atualiza o total após adicionar um prato
-        System.out.println("Prato adicionado à comanda: " + pratoNome);
+        listModel.addElement(pratoNome); // Adiciona o prato à lista
+        atualizarTotal(); // Atualiza o total
     }
+    public void adicionarBebidaNaComanda(String bebidaNome) {
+        // Adicione lógica para adicionar a bebida à comanda
+        listModel.addElement(bebidaNome); // Isso adiciona a bebida à lista de itens da comanda
+        atualizarTotal(); // Atualiza o total após adicionar
+    }
+    
 }

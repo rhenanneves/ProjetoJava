@@ -1,6 +1,6 @@
 Relatório da Comanda da Mesa 2
-Total: R$ 28.0
-Forma de Pagamento: Crédito
+Total: R$ 45.0
+Forma de Pagamento: Débito
 Itens da Comanda:
-- Petit Gateu
-- Suco de maracujá
+- Macarrão a bolonhesa
+- Suco de laranja
