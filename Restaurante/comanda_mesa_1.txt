@@ -1,0 +1,4 @@
+Relatório da Comanda da Mesa 1
+Método de Pagamento: Dinheiro
+Itens da Comanda:
+- Torta de camarão
