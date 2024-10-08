@@ -11,11 +11,11 @@ Criar um sistema que permita ao gerente do restaurante realizar o gerenciamento 
 
 *Objetivos Específicos:
 
-*Permitir o cadastro, edição, exclusão e listagem de funcionários.
-*Permitir o cadastro, edição, exclusão e listagem de mesas.
-*Gerenciar o cardápio, permitindo o cadastro, edição, exclusão e listagem de pratos e bebidas.
-*Fornecer uma interface amigável para geração de relatórios de funcionários e cardápio.
-*Controlar acesso e operações por diferentes tipos de usuários, com foco no gerente.
+*Permitir o cadastro, edição, exclusão e listagem de funcionários. <br>
+*Permitir o cadastro, edição, exclusão e listagem de mesas. <br>
+*Gerenciar o cardápio, permitindo o cadastro, edição, exclusão e listagem de pratos e bebidas.<br>
+*Fornecer uma interface amigável para geração de relatórios de funcionários e cardápio.<br>
+*Controlar acesso e operações por diferentes tipos de usuários, com foco no gerente.<br>
 =====================================
 *3. Funcionalidades do Sistema*
 Funcionalidades de Gerenciamento de Recursos:
