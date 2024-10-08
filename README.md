@@ -1,6 +1,6 @@
 *Sistema de Gerenciamento de Restaurante*
 ===============================
-*1. Introdução*
+1. Introdução
 O sistema de gerenciamento de restaurante é uma aplicação desktop desenvolvida com o objetivo de otimizar o controle das operações do restaurante, incluindo o cadastro e gerenciamento de funcionários, mesas, pratos e bebidas, além da geração de relatórios detalhados para o gerente. O sistema é desenvolvido em Java com integração ao banco de dados via JDBC.
 ========================================
 *2. Objetivos*
