@@ -1,0 +1,6 @@
+Relatório da Comanda da Mesa 1
+Total: R$ 40.0
+Forma de Pagamento: Dinheiro
+Itens da Comanda:
+- Panceta
+- Coca cola

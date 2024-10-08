@@ -1,0 +1,6 @@
+Relatório da Comanda da Mesa 2
+Total: R$ 18.0
+Forma de Pagamento: Crédito
+Itens da Comanda:
+- Petit Gateu
+- Suco de morango
