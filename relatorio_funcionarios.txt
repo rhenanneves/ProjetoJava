@@ -1,3 +1,6 @@
-ID: 1, Nome: Rhenan, Cargo: Caixa
-ID: 2, Nome: Rhuan, Cargo: Chapeiro
-ID: 3, Nome: Adriano, Cargo: Cozinheiro
+ID: 5, Nome: João Silva, Cargo: Gerente de Restaurante
+ID: 6, Nome: Maria Souza, Cargo: Chefe de Cozinha
+ID: 7, Nome: Carlos Oliveira, Cargo: Garçom
+ID: 8, Nome: Ana Costa, Cargo: Auxiliar de Cozinha
+ID: 9, Nome: Pedro Lima, Cargo: Recepcionista
+ID: 10, Nome: Rhenan, Cargo: Garçom

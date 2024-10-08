@@ -1,6 +1,0 @@
-Relatório da Comanda da Mesa 2
-Total: R$ 45.0
-Forma de Pagamento: Débito
-Itens da Comanda:
-- Macarrão a bolonhesa
-- Suco de laranja

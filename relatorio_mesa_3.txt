@@ -1,7 +1,6 @@
 Relatório da Comanda da Mesa 3
-Total: R$ 58.0
+Total: R$ 22.0
 Forma de Pagamento: Dinheiro
 Itens da Comanda:
-- Strogonoff
-- Petit Gateu
-- Suco de laranja
+- Teste
+- Teste

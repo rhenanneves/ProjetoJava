@@ -1,0 +1,8 @@
+Relatório da Comanda da Mesa 4
+Total: R$ 87.9
+Forma de Pagamento: Dinheiro
+Itens da Comanda:
+- Risoto de queijo 
+- Caipirinha de Morango
+- Frango à Parmegiana
+- Suco Detox Verde

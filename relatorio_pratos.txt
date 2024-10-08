@@ -1,6 +1,11 @@
-ID: 1, Nome: Macarrão , Preço: 35.0
-ID: 2, Nome: Torta de camarão, Preço: 40.0
-ID: 3, Nome: Suco de maracujá, Preço: 10.0
-ID: 4, Nome: Petit Gateu, Preço: 18.0
-ID: 5, Nome: Torta de maçã, Preço: 25.0
-ID: 6, Nome: Panceta, Preço: 40.0
+ID: 8, Nome: Filé Mignon com Fritas, Preço: 45.9
+ID: 9, Nome: Lasanha de Quatro Queijos, Preço: 38.5
+ID: 10, Nome: Frango à Parmegiana, Preço: 32.9
+ID: 11, Nome: Salmão Grelhado, Preço: 49.9
+ID: 12, Nome: Ravioli de Espinafre, Preço: 35.0
+ID: 13, Nome: Risoto de Camarão, Preço: 48.0
+ID: 14, Nome: Pizza Margherita, Preço: 29.9
+ID: 15, Nome: Bife à Cavalo, Preço: 37.5
+ID: 16, Nome: Spaghetti à Bolonhesa, Preço: 28.0
+ID: 17, Nome: Tacos de Carne, Preço: 33.5
+ID: 18, Nome: Risoto de queijo , Preço: 55.0
